@@ -53,13 +53,14 @@ public class Driver
         while(true)
         {
             menu_.displayOptions();
-            RosterCommand command = menu_.fetchUserCommand().get(roster_);
-            if(command == null)
+            RosterCommand.RosterCommandCtr ctor = menu_.fetchUserCommand();
+            if(ctor == null)
             {
                 /** this is such a hack... */
-                cmdStack_.pop().undo();
+                roster_ = cmdStack_.pop().undo();
                 continue;
             }
+            RosterCommand command = ctor.get(roster_);
             command.execute();
             cmdStack_.push(command);
         }

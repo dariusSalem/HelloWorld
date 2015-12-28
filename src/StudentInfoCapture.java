@@ -75,7 +75,7 @@ public class StudentInfoCapture
     {
         System.out.println("Enter Student Age");
         Integer age = new Integer(0);
-        String pattern = "[1-9]{2}";
+        String pattern = "[1-9][0-9]";
         Scanner sc = new Scanner(System.in);
         if(!sc.hasNext(pattern))
         {
