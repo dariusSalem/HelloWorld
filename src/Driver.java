@@ -28,6 +28,7 @@ public class Driver
     {
         menu_.addOption("Add Student",            new AddStudentCommand());
         menu_.addOption("Modify Student",         new ModifyStudentCommand());
+        menu_.addOption("Remove Student",         new RemoveStudentCommand());
         menu_.addOption("Print to Console",       new PrintRosterCommand() );
         menu_.addOption("Save to File in XML",    new SaveRosterCommand(new SaveRosterXML()) );
         menu_.addOption("Save to File in JSON",   new SaveRosterCommand(new SaveRosterJson()) );

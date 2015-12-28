@@ -20,15 +20,19 @@ public class Roster
         students_.add(newStudent);
     }
 
-    public void removeStudent(int studentId)
+    public boolean removeStudent(int studentId)
     {
+        boolean ret=false;
         for(Student student : students_)
         {
             if(student.getId() == studentId)
             {
                 students_.remove(student);
+                ret = true;
+                break;
             }
         }
+        return ret;
     }
 
     public Student getStudent(int studentId)
