@@ -1,10 +1,15 @@
 /**
  * Created by Darius on 12/26/2015.
  */
-public class ExitCommand implements RosterCommand
+public class ExitCommand extends RosterCommand
 {
+    public ExitCommand(Roster roster)
+    {
+        super(roster);
+    }
+
     @Override
-    public void execute(Roster roster)
+    public void execute()
     {
         System.out.println("Exiting");
         System.exit(1);

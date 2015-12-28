@@ -1,12 +1,17 @@
 /**
  * Created by Darius on 12/27/2015.
  */
-public class RemoveStudentCommand implements RosterCommand
+public class RemoveStudentCommand extends RosterCommand
 {
-    @Override
-    public void execute(Roster roster)
+    public RemoveStudentCommand(Roster roster)
     {
-        boolean success = roster.removeStudent(StudentInfoCapture.askId());
+        super(roster);
+    }
+
+    @Override
+    public void execute()
+    {
+        boolean success = getRoster().removeStudent(StudentInfoCapture.askId());
         if(!success)
         {
             InputParser.throwError();

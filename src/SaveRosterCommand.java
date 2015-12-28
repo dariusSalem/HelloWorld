@@ -1,7 +1,7 @@
 /**
  * Created by Darius on 12/26/2015.
  */
-public class SaveRosterCommand implements RosterCommand
+public class SaveRosterCommand extends RosterCommand
 {
     /**
      * If this were to go live, we woulnd't want our own serialzer class,
@@ -9,18 +9,20 @@ public class SaveRosterCommand implements RosterCommand
      */
     private SaveRosterStrategy saver_;
 
-    public SaveRosterCommand(SaveRosterStrategy saver)
+    public SaveRosterCommand(Roster roster,
+                             SaveRosterStrategy saver)
     {
+        super(roster);
         saver_ = saver;
     }
 
     @Override
-    public void execute(Roster roster)
+    public void execute()
     {
         String fileName = "";
 
         //use input parser to get it
-        roster.save(fileName,
+        getRoster().save(fileName,
                     saver_);
     }
 }

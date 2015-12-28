@@ -1,10 +1,19 @@
+import java.util.Stack;
+
 /**
  * Created by Darius on 12/24/2015.
  */
 public class Driver
 {
-    private Menu<RosterCommand> menu_;
+    /**
+     * SupplierCommandCtr is a functional interface that returns a
+     * RosterCommand. I can satisfy the interface by using
+     * constructors references of my command classes and lambda expresssions.
+     * Basically storing constructor functors!
+     */
+    private Menu<RosterCommand.RosterCommandCtr> menu_;
     private Roster roster_;
+    private Stack<RosterCommand> cmdStack_;
 
     public static void main(String... args)
     {
@@ -18,6 +27,7 @@ public class Driver
     {
         menu_ = new Menu<>();
         roster_ = new Roster();
+        cmdStack_ = new Stack<>();
     }
 
     /**
@@ -26,28 +36,32 @@ public class Driver
      */
     private void initMap()
     {
-        menu_.addOption("Add Student",            new AddStudentCommand());
-        menu_.addOption("Modify Student",         new ModifyStudentCommand());
-        menu_.addOption("Remove Student",         new RemoveStudentCommand());
-        menu_.addOption("Print to Console",       new PrintRosterCommand() );
-        menu_.addOption("Save to File in XML",    new SaveRosterCommand(new SaveRosterXML()) );
-        menu_.addOption("Save to File in JSON",   new SaveRosterCommand(new SaveRosterJson()) );
-        menu_.addOption("Exit Program",           new ExitCommand() );
+
+        menu_.addOption("Add Student",            AddStudentCommand::new);
+        menu_.addOption("Modify Student",         ModifyStudentCommand::new);
+        menu_.addOption("Remove Student",         RemoveStudentCommand::new);
+        menu_.addOption("Print to Console",       PrintRosterCommand::new );
+        menu_.addOption("Save to File in XML",    (roster)->{return new SaveRosterCommand(roster, new SaveRosterXML());});
+        menu_.addOption("Save to File in JSON",   (roster)->{return new SaveRosterCommand(roster, new SaveRosterJson());});
+        menu_.addOption("Undo Previous Command",  null);
+        menu_.addOption("Exit Program",           ExitCommand::new );
+
     }
 
     public void run()
     {
         while(true)
         {
-
             menu_.displayOptions();
-            RosterCommand command = menu_.fetchUserCommand();
+            RosterCommand command = menu_.fetchUserCommand().get(roster_);
             if(command == null)
             {
-                System.out.println("ITS NULL");
+                /** this is such a hack... */
+                cmdStack_.pop().undo();
                 continue;
             }
-            command.execute(roster_);
+            command.execute();
+            cmdStack_.push(command);
         }
     }
 }

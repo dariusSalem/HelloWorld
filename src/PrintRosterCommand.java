@@ -1,11 +1,16 @@
 /**
  * Created by Darius on 12/25/2015.
  */
-public class PrintRosterCommand implements RosterCommand
+public class PrintRosterCommand extends RosterCommand
 {
-    @Override
-    public void execute(Roster roster)
+    public PrintRosterCommand(Roster roster)
     {
-        System.out.println(roster);
+        super(roster);
+    }
+
+    @Override
+    public void execute()
+    {
+        System.out.println(getRoster());
     }
 }

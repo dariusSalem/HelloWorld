@@ -15,6 +15,20 @@ public class Roster
         students_ = new ArrayList<>();
     }
 
+    public Roster(Roster roster)
+    {
+        students_ = new ArrayList<>();
+        for(Student student : roster.getStudents())
+        {
+            students_.add( new Student(student));
+        }
+    }
+
+    public Roster(List<Student> students)
+    {
+        students_ = students;
+    }
+
     public void addStudent(Student newStudent)
     {
         students_.add(newStudent);
@@ -67,6 +81,11 @@ public class Roster
     public void accept(RosterVisitor visitor)
     {
         visitor.visit(this);
+    }
+
+    private List<Student> getStudents()
+    {
+        return students_;
     }
 
 }

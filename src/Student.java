@@ -26,6 +26,15 @@ public class Student
         firstName_ = firstName;
         lastName_ = lastName;
     }
+
+    public Student(Student student)
+    {
+        id_ = student.getId();
+        age_ = student.getAge();
+        firstName_ = student.getFirstName();
+        lastName_ = student.getLastName();
+    }
+
     public void setId(int id)
     {
         id_= id;

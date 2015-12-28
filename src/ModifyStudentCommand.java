@@ -6,12 +6,14 @@
  *  about how my type could not be converted to T
  */
 
-public class ModifyStudentCommand implements RosterCommand
+public class ModifyStudentCommand extends RosterCommand
 {
     private Menu<EditCommand> menu_;
 
-    public ModifyStudentCommand()
+    public ModifyStudentCommand(Roster roster)
     {
+        super(roster);
+
         menu_ = new Menu<>();
         menu_.addOption("Modify ID",
                 new EditId());
@@ -24,10 +26,10 @@ public class ModifyStudentCommand implements RosterCommand
     }
 
     @Override
-    public void execute(Roster roster)
+    public void execute()
     {
         Integer id = StudentInfoCapture.askId();
-        Student student = roster.getStudent(id);
+        Student student = getRoster().getStudent(id);
 
         if(student == null)
         {
