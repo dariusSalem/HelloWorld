@@ -13,18 +13,7 @@ public class StudentInfoCapture
 
         System.out.println("Enter Student Id");
         Scanner sc = new Scanner(System.in);
-        /*
-        InputParser.InputChecker<Integer> idChecker =  (val) -> {
-            return  (val % 99999 == 0) ? true : false ;
-        };
 
-        if(! InputParser.getInput(id,
-                idChecker))
-        {
-            InputParser.throwError();
-            id = askId();
-        }
-        */
         String pattern = "\\d{1,5}";
         if(!sc.hasNext(pattern))
         {
@@ -44,15 +33,6 @@ public class StudentInfoCapture
         String firstName = "";
         System.out.println("Enter Student First Name");
 
-        /*
-        if(! InputParser.getInput(firstName,
-                new NameChecker(Student.FIRST_NAME_MIN_LENGTH,
-                                Student.FIRST_NAME_MAX_LENGTH)))
-        {
-            InputParser.throwError();
-            firstName = askFirstName();
-        }
-        */
         String pattern =
                 "\\w{" +Student.FIRST_NAME_MIN_LENGTH + "," +  Student.FIRST_NAME_MAX_LENGTH + "}";
         Scanner sc = new Scanner(System.in);
