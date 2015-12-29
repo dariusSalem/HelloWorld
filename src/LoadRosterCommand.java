@@ -1,7 +1,7 @@
 /**
  * Created by Darius on 12/28/2015.
  */
-public class LoadRosterCommand extends  RosterCommand
+public class LoadRosterCommand extends  RosterCommand implements RosterVisitor
 {
     private LoadRosterStrategy strat_;
 
@@ -14,10 +14,14 @@ public class LoadRosterCommand extends  RosterCommand
 
     public void execute()
     {
-        String fileName = "";
+        getRoster().accept(this);
+    }
 
+    public void visit(Roster roster)
+    {
+        String fileName = "";
         //use input parser to get it
-        getRoster().load(fileName,
-                         strat_);
+        strat_.load(fileName,
+                    roster);
     }
 }

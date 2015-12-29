@@ -73,19 +73,6 @@ public class Roster
         return ret;
     }
 
-    /**
-     * These need to be refactored to visitors..They clutter the business logic
-     */
-    public void save(String fileName, SaveRosterStrategy saver)
-    {
-        saver.save(fileName, this);
-    }
-
-    public void load(String fileName, LoadRosterStrategy loader)
-    {
-        loader.load(fileName, this);
-    }
-
     public void accept(RosterVisitor visitor)
     {
         visitor.visit(this);
