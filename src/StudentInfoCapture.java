@@ -90,25 +90,4 @@ public class StudentInfoCapture
         return age;
     }
 
-    private class NameChecker implements InputParser.InputChecker<String>
-    {
-        private int minLength_,
-                    maxLength_;
-
-        NameChecker(int minLength,
-                    int maxLength)
-        {
-            minLength_ = minLength;
-            maxLength_ = maxLength;
-        }
-
-        @Override
-        public boolean check(String input)
-        {
-            Pattern pattern = Pattern.compile("\\w{" + minLength_ + "," +  maxLength_ + "}");
-            Matcher matcher = pattern.matcher(input);
-            return matcher.matches();
-        }
-    }
-
 }

@@ -41,6 +41,8 @@ public class Driver
         menu_.addOption("Modify Student",         ModifyStudentCommand::new);
         menu_.addOption("Remove Student",         RemoveStudentCommand::new);
         menu_.addOption("Print to Console",       PrintRosterCommand::new );
+        menu_.addOption("Load Roster XML File",   (roster)->{return new LoadRosterCommand(roster, new LoadRosterXML());});
+        menu_.addOption("Load Roster JSON File",  (roster)->{return new LoadRosterCommand(roster, new LoadRosterJson());});
         menu_.addOption("Save to File in XML",    (roster)->{return new SaveRosterCommand(roster, new SaveRosterXML());});
         menu_.addOption("Save to File in JSON",   (roster)->{return new SaveRosterCommand(roster, new SaveRosterJson());});
         menu_.addOption("Undo Previous Command",  null);
@@ -54,9 +56,11 @@ public class Driver
         {
             menu_.displayOptions();
             RosterCommand.RosterCommandCtr ctor = menu_.fetchUserCommand();
+
+            /** this is such a hack... */
             if(ctor == null)
             {
-                /** this is such a hack... */
+
                 roster_ = cmdStack_.pop().undo();
                 continue;
             }
