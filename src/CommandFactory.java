@@ -4,4 +4,9 @@
 public interface CommandFactory
 {
     RosterCommand getProduct(Roster roster);
+
+    public class Foo
+    {
+
+    }
 }
