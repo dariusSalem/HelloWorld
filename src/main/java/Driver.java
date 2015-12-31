@@ -1,5 +1,3 @@
-import java.util.Stack;
-
 /**
  * Created by Darius on 12/24/2015.
  */
@@ -11,7 +9,7 @@ public class Driver
     public static void main(String... args)
     {
         System.out.println("Hello");
-        Driver driver = new Driver(new DisplayManager(new ConsoleDisplay()));
+        Driver driver = new Driver(new DisplayManager(new RosterConsole()));
     }
 
     public Driver(DisplayManager display)

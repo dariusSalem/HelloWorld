@@ -14,6 +14,6 @@ public class DisplayManager
 
     public void showDisplay()
     {
-        display_.show();
+        display_.showDisplay();
     }
 }
