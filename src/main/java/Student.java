@@ -64,6 +64,26 @@ public class Student
     public String getLastName(){ return lastName_; }
 
     @Override
+    public boolean equals(Object rhs)
+    {
+        if(this == rhs)
+        {
+            return true;
+        }
+
+        if(rhs == null || (this.getClass() != rhs.getClass()))
+        {
+            return false;
+        }
+        Student other = (Student)rhs;
+        return(this.id_ == other.id_ &&
+                this.age_ == other.age_ &&
+                this.firstName_.equals(other.firstName_ ) &&
+                this.lastName_.equals(other.lastName_)
+                );
+    }
+
+    @Override
     public String toString()
     {
         String ret = "Student: \n";
