@@ -23,6 +23,7 @@ public class StudentTest
     {
         Student studentCopy = new Student(student_);
         Assert.assertEquals(studentCopy,student_);
+        Assert.assertTrue( studentCopy != student_);
     }
 
     @Before

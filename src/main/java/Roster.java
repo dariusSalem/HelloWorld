@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class Roster
 {
-
     private List<Student> students_;
 
     public Roster()
@@ -28,6 +27,8 @@ public class Roster
     {
         students_ = students;
     }
+
+    public int getSize(){ return students_.size();}
 
     public void addStudent(Student newStudent)
     {
@@ -71,6 +72,24 @@ public class Roster
             ret += "\t" + student.toString();
         }
         return ret;
+    }
+
+    @Override
+    public boolean equals(Object rhs)
+    {
+        if(this == rhs)
+        {
+            return true;
+        }
+
+        if( this.getClass() != rhs.getClass())
+        {
+            return false;
+        }
+
+        Roster temp = (Roster) rhs;
+        return(this.students_.equals(((Roster) rhs).students_));
+
     }
 
     public void accept(RosterVisitor visitor)
