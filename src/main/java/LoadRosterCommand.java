@@ -3,57 +3,35 @@ import java.util.Scanner;
 /**
  * Created by Darius on 12/28/2015.
  */
-public class LoadRosterCommand extends  RosterCommand implements RosterVisitor
+public class LoadRosterCommand extends  RosterCommandReversable implements RosterVisitor
 {
     private LoadRosterStrategy strat_;
+    private String fileName_;
+    private Roster roster_, origRoster_;
 
     public LoadRosterCommand(Roster roster,
-                             LoadRosterStrategy strat)
+                             LoadRosterStrategy strat,
+                             String fileName)
     {
-        super(roster);
+        roster_ = roster;
+        origRoster_ = new Roster(roster);
         strat_ = strat;
+        fileName_ = fileName;
     }
 
-    public void execute()
+    public void implExecute()
     {
-        getRoster().accept(this);
+        roster_.accept(this);
+    }
+    public void implUndo()
+
+    {
+        roster_.assign(origRoster_);
     }
 
     public void visit(Roster roster)
     {
-        String fileName = askFileName();
-
-        strat_.load(fileName,
+        strat_.load(fileName_,
                     roster);
-    }
-
-    /**
-     *
-     * This code is duplicated(BAD). Perhaps create a filecommand class that
-     * has these methods. This class would inherit from it or just make this a
-     * method in RosterCommand
-     */
-    public  static String askFileName()
-    {
-        String fileName = "";
-
-        final int MIN_LENGTH = 1,
-                  MAX_LENGTH = 40;
-        System.out.println("Enter Filename, no extension ");
-
-        String pattern =
-                "\\w{" + MIN_LENGTH + "," + MAX_LENGTH + "}";
-        Scanner sc = new Scanner(System.in);
-        if(!sc.hasNext(pattern))
-        {
-            InputParser.throwError();
-            fileName = askFileName();
-        }
-        else
-        {
-            fileName = sc.next(pattern);
-        }
-
-        return fileName;
     }
 }

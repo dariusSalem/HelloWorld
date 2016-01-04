@@ -23,6 +23,11 @@ public class Roster
         }
     }
 
+    public void assign(Roster roster)
+    {
+        students_ = roster.students_;
+    }
+
     public Roster(List<Student> students)
     {
         students_ = students;
@@ -49,6 +54,22 @@ public class Roster
         }
         return ret;
     }
+
+    public boolean removeStudent(Student student)
+    {
+        boolean ret=false;
+        for(Student currStudent : students_)
+        {
+            if(currStudent == student)
+            {
+                students_.remove(student);
+                ret = true;
+                break;
+            }
+        }
+        return ret;
+    }
+
 
     public Student getStudent(int studentId)
     {

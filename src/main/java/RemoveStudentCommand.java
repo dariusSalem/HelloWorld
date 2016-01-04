@@ -1,20 +1,32 @@
 /**
  * Created by Darius on 12/27/2015.
  */
-public class RemoveStudentCommand extends RosterCommand
+public class RemoveStudentCommand extends RosterCommandReversable
 {
-    public RemoveStudentCommand(Roster roster)
+    private Student student_;
+    private Roster roster_;
+    public RemoveStudentCommand(Roster roster,
+                                Student student)
     {
-        super(roster);
+        roster_ = roster;
+        student_ = student;
     }
 
     @Override
-    public void execute()
+    public void implExecute()
     {
-        boolean success = getRoster().removeStudent(StudentInfoCapture.askId());
+        boolean success = roster_.removeStudent(student_);
+        /*
         if(!success)
         {
             InputParser.throwError();
         }
+        */
+    }
+
+    @Override
+    public void implUndo()
+    {
+        roster_.addStudent(student_);
     }
 }

@@ -3,58 +3,31 @@ import java.util.Scanner;
 /**
  * Created by Darius on 12/26/2015.
  */
-public class SaveRosterCommand extends RosterCommand implements RosterVisitor
+public class SaveRosterCommand implements RosterCommand, RosterVisitor
 {
     private SaveRosterStrategy saver_;
+    private String fileName_;
+    private Roster roster_;
 
     public SaveRosterCommand(Roster roster,
-                             SaveRosterStrategy saver)
+                             SaveRosterStrategy saver,
+                             String fileName)
     {
-        super(roster);
+        roster_ = roster;
         saver_ = saver;
+        fileName_ = fileName;
     }
 
     @Override
     public void execute()
     {
-        getRoster().accept(this);
+        roster_.accept(this);
     }
 
     public void visit(Roster roster)
     {
-        String fileName = askFileName();
-
         //use input parser to get it
-        saver_.save(fileName,
+        saver_.save(fileName_,
                     roster);
-    }
-
-    /**
-     *
-     * This code is duplicated(BAD). Perhaps create a filecommand class that
-     * has these methods
-     */
-    public  static String askFileName()
-    {
-        String fileName = "";
-
-        final int MIN_LENGTH = 1,
-                MAX_LENGTH = 40;
-        System.out.println("Enter Filename, without extension.");
-
-        String pattern =
-                "\\w{" + MIN_LENGTH + "," + MAX_LENGTH + "}";
-        Scanner sc = new Scanner(System.in);
-        if(!sc.hasNext(pattern))
-        {
-            InputParser.throwError();
-            fileName = askFileName();
-        }
-        else
-        {
-            fileName = sc.next(pattern);
-        }
-
-        return fileName;
     }
 }

@@ -4,23 +4,25 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class AddStudentCommand extends RosterCommand
+public class AddStudentCommand extends RosterCommandReversable
 {
-    public AddStudentCommand(Roster roster)
+    Student student_;
+    Roster roster_;
+    public AddStudentCommand(Roster roster,
+                             Student student)
     {
-        super((roster));
+        roster_ = roster;
+        student_ = student;
     }
 
     @Override
-    public void execute()
+    public void implExecute()
     {
-        Integer id = StudentInfoCapture.askId();
-        Integer age = StudentInfoCapture.askAge();
-        String firstName = StudentInfoCapture.askFirstName();
-        String lastName = StudentInfoCapture.askLastName();
-        getRoster().addStudent(new Student(id,
-                                      age,
-                                      firstName,
-                                      lastName));
+        roster_.addStudent(student_);
+    }
+
+    public void implUndo()
+    {
+        roster_.removeStudent(student_);
     }
 }

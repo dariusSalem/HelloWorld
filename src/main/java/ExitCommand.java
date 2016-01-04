@@ -1,12 +1,10 @@
 /**
  * Created by Darius on 12/26/2015.
  */
-public class ExitCommand extends RosterCommand
+public class ExitCommand implements RosterCommand
 {
-    public ExitCommand(Roster roster)
-    {
-        super(roster);
-    }
+    public ExitCommand(Roster roster){};
+
 
     @Override
     public void execute()
